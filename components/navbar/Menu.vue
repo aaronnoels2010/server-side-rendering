@@ -30,10 +30,7 @@ export default {
     }
   },
   async fetch () {
-    if (this.navItems.length === 0 || (Date.now() - this.$fetchState.timestamp) < 3600000) {
-      this.navItems = await this.$axios.get('/configuration').then(response => response.data)
-    }
-    console.log(Date.now() - this.$fetchState.timestamp)
+    // TODO add configuration call from api
   }
 }
 </script>

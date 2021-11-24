@@ -28,10 +28,10 @@ export default {
   },
   computed: {
     loggedIn () {
-      return this.$store.state.auth.loggedIn
+      return this.$store.state.auth.loggedIn ?? false
     },
     currentUser () {
-      return this.$store.state.auth.user
+      return this.$store.state.auth.user ?? null
     }
   },
   methods: {

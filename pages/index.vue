@@ -3,7 +3,7 @@
     <h1 class="is-size-1">Gotta catch them all</h1>
     <div class="is-flex">
       <div class="is-flex-grow-1 mr-4">
-        <input class="input" type="search" v-model="keyword">
+        <input placeholder="TODO implement search functionality" class="input" type="search" v-model="keyword">
       </div>
       <b-button :disable="keyword" type="is-primary" @click="search">Search</b-button>
     </div>
@@ -22,14 +22,8 @@ export default Vue.extend({
     }
   },
   methods: {
-    search (event: any) {
-      event.target.className += ' is-loading'
-      this.$axios.get(`/search?q=${this.keyword}`)
-        .then(response => response.data)
-        .then(data => this.$router.push(data.path))
-        .finally(() => {
-          event.target.className = event.target.className.replace(' is-loading', '')
-        })
+    search () {
+      // TODO add search implementation
     }
   }
 })

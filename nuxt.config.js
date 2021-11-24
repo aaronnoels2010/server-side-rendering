@@ -21,7 +21,7 @@ export default {
 
   // Plugins to run before rendering page: https://go.nuxtjs.dev/config-plugins
   plugins: [
-    '~/plugins/axios'
+    // TODO ADD PLUGIN
   ],
 
   // Auto import components: https://go.nuxtjs.dev/config-components
@@ -42,26 +42,15 @@ export default {
     'nuxt-buefy'
   ],
   router: {
-    middleware: ['auth', 'logger']
+    // TODO add middleware
+    middleware: []
   },
   auth: {
-    redirect: {
-      login: '/login', // redirect user when not connected
-      logout: '/logout',
-      callback: '/callback',
-      home: '/'
-    },
-    strategies: {
-      auth0: {
-        audience: process.env.AUTH0_AUDIENCE,
-        domain: process.env.AUTH0_DOMAIN,
-        clientId: process.env.AUTH0_CLIENT_ID
-      }
-    }
+    // TODO ADD AUTH WITH AUTH0
   },
   // Axios module configuration: https://go.nuxtjs.dev/config-axios
   axios: {
-    baseURL: process.env.API_BASE_URL
+    // TODO ADD AXIOS BASE URL
   },
 
   // PWA module configuration: https://go.nuxtjs.dev/pwa
@@ -90,8 +79,7 @@ export default {
       }
     }
   },
-  serverMiddleware: [{
-    path: '/api',
-    handler: '~/api/index.ts'
-  }]
+  serverMiddleware: [
+    // TODO ADD SERVER MIDDLEWARE
+  ]
 }
