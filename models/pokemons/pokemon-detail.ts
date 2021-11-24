@@ -1,152 +1,184 @@
-// To parse this data:
-//
-//   import { Convert, PokemonDetail } from "./file";
-//
-//   const pokemonDetail = Convert.toPokemonDetail(json);
-
 export interface PokemonDetail {
-  id?: number;
-  name?: string;
-  base_experience?: number;
-  height?: number;
-  is_default?: boolean;
-  order?: number;
-  weight?: number;
-  abilities?: Ability[];
-  forms?: Species[];
-  game_indices?: GameIndex[];
-  held_items?: HeldItem[];
-  location_area_encounters?: string;
-  moves?: Move[];
-  species?: Species;
-  sprites?: Sprites;
-  stats?: Stat[];
-  types?: Type[];
+  abilities: Ability[];
+  baseExperience: number;
+  forms: Species[];
+  gameIndices: GameIndex[];
+  height: number;
+  heldItems: HeldItem[];
+  id: number;
+  isDefault: boolean;
+  locationAreaEncounters: string;
+  moves: Move[];
+  name: string;
+  order: number;
+  pastTypes: any[];
+  species: Species;
+  sprites: Sprites;
+  stats: Stat[];
+  types: Type[];
+  weight: number;
 }
 
 export interface Ability {
-  is_hidden?: boolean;
-  slot?: number;
-  ability?: Species;
+  ability: Species;
+  isHidden: boolean;
+  slot: number;
 }
 
 export interface Species {
-  name?: string;
-  url?: string;
+  name: string;
+  url: string;
 }
 
 export interface GameIndex {
-  game_index?: number;
-  version?: Species;
+  gameIndex: number;
+  version: Species;
 }
 
 export interface HeldItem {
-  item?: Species;
-  version_details?: VersionDetail[];
+  item: Species;
+  versionDetails: VersionDetail[];
 }
 
 export interface VersionDetail {
-  rarity?: number;
-  version?: Species;
+  rarity: number;
+  version: Species;
 }
 
 export interface Move {
-  move?: Species;
-  version_group_details?: VersionGroupDetail[];
+  move: Species;
+  versionGroupDetails: VersionGroupDetail[];
 }
 
 export interface VersionGroupDetail {
-  level_learned_at?: number;
-  version_group?: Species;
-  move_learn_method?: Species;
-}
-
-export interface Sprites {
-  back_female?: string;
-  back_shiny_female?: string;
-  back_default?: string;
-  front_female?: string;
-  front_shiny_female?: string;
-  back_shiny?: string;
-  front_default?: string;
-  front_shiny?: string;
-  other?: Other;
-  versions?: Versions;
-}
-
-export interface Other {
-  dream_world?: DreamWorld;
-  "official-artwork"?: DreamWorld;
-}
-
-export interface DreamWorld {
-}
-
-export interface Versions {
-  "generation-i"?: GenerationI;
-  "generation-ii"?: GenerationIi;
-  "generation-iii"?: GenerationIii;
-  "generation-iv"?: GenerationIv;
-  "generation-v"?: GenerationV;
-  "generation-vi"?: { [key: string]: DreamWorld };
-  "generation-vii"?: GenerationVii;
-  "generation-viii"?: GenerationViii;
-}
-
-export interface GenerationI {
-  "red-blue"?: DreamWorld;
-  yellow?: DreamWorld;
-}
-
-export interface GenerationIi {
-  crystal?: DreamWorld;
-  gold?: DreamWorld;
-  silver?: DreamWorld;
-}
-
-export interface GenerationIii {
-  emerald?: DreamWorld;
-  "firered-leafgreen"?: DreamWorld;
-  "ruby-sapphire"?: DreamWorld;
-}
-
-export interface GenerationIv {
-  "diamond-pearl"?: DreamWorld;
-  "heartgold-soulsilver"?: DreamWorld;
-  platinum?: DreamWorld;
+  levelLearnedAt: number;
+  moveLearnMethod: Species;
+  versionGroup: Species;
 }
 
 export interface GenerationV {
-  "black-white"?: DreamWorld;
+  blackWhite: Sprites;
+}
+
+export interface GenerationIv {
+  diamondPearl: Sprites;
+  heartgoldSoulsilver: Sprites;
+  platinum: Sprites;
+}
+
+export interface Versions {
+  generationI: GenerationI;
+  generationIi: GenerationIi;
+  generationIii: GenerationIii;
+  generationIv: GenerationIv;
+  generationV: GenerationV;
+  generationVi: { [key: string]: Home };
+  generationVii: GenerationVii;
+  generationViii: GenerationViii;
+}
+
+export interface Sprites {
+  backDefault: string;
+  backFemale: null;
+  backShiny: string;
+  backShinyFemale: null;
+  frontDefault: string;
+  frontFemale: null;
+  frontShiny: string;
+  frontShinyFemale: null;
+  other?: Other;
+  versions?: Versions;
+  animated?: Sprites;
+}
+
+export interface GenerationI {
+  redBlue: RedBlue;
+  yellow: RedBlue;
+}
+
+export interface RedBlue {
+  backDefault: string;
+  backGray: string;
+  backTransparent: string;
+  frontDefault: string;
+  frontGray: string;
+  frontTransparent: string;
+}
+
+export interface GenerationIi {
+  crystal: Crystal;
+  gold: Gold;
+  silver: Gold;
+}
+
+export interface Crystal {
+  backDefault: string;
+  backShiny: string;
+  backShinyTransparent: string;
+  backTransparent: string;
+  frontDefault: string;
+  frontShiny: string;
+  frontShinyTransparent: string;
+  frontTransparent: string;
+}
+
+export interface Gold {
+  backDefault: string;
+  backShiny: string;
+  frontDefault: string;
+  frontShiny: string;
+  frontTransparent?: string;
+}
+
+export interface GenerationIii {
+  emerald: Emerald;
+  fireredLeafgreen: Gold;
+  rubySapphire: Gold;
+}
+
+export interface Emerald {
+  frontDefault: string;
+  frontShiny: string;
+}
+
+export interface Home {
+  frontDefault: string;
+  frontFemale: null;
+  frontShiny: string;
+  frontShinyFemale: null;
 }
 
 export interface GenerationVii {
-  icons?: DreamWorld;
-  "ultra-sun-ultra-moon"?: DreamWorld;
+  icons: DreamWorld;
+  ultraSunUltraMoon: Home;
+}
+
+export interface DreamWorld {
+  frontDefault: string;
+  frontFemale: null;
 }
 
 export interface GenerationViii {
-  icons?: DreamWorld;
+  icons: DreamWorld;
+}
+
+export interface Other {
+  dreamWorld: DreamWorld;
+  home: Home;
+  officialArtwork: OfficialArtwork;
+}
+
+export interface OfficialArtwork {
+  frontDefault: string;
 }
 
 export interface Stat {
-  base_stat?: number;
-  effort?: number;
-  stat?: Species;
+  baseStat: number;
+  effort: number;
+  stat: Species;
 }
 
 export interface Type {
-  slot?: number;
-  type?: Species;
-}
-
-// Converts JSON strings to/from your types
-export class Convert {
-  public static toPokemonDetail (json: string): PokemonDetail {
-    return JSON.parse(json)
-  }
-
-  public static pokemonDetailToJson (value: PokemonDetail): string {
-    return JSON.stringify(value)
-  }
+  slot: number;
+  type: Species;
 }

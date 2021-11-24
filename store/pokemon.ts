@@ -1,5 +1,5 @@
-import { Convert as CP } from '~/models/pokemons/pokemon'
-import { Convert as CPD } from '~/models/pokemons/pokemon-detail'
+import { Pokemon } from '~/models/pokemons/pokemon'
+import { PokemonDetail } from '~/models/pokemons/pokemon-detail'
 
 const Pokedex = require('pokedex-promise-v2')
 const P = new Pokedex()
@@ -16,40 +16,40 @@ export const state = function () {
 }
 
 export const mutations = {
-  next (state) {
+  next (state: any) {
     state.pagination.offset += state.pagination.limit
   },
-  previous (state) {
+  previous (state: any) {
     if (state.pagination.offset !== 0) {
       state.pagination.offset -= state.pagination.limit
     }
   },
-  setPokemons (state, pokemons) {
-    state.pokemons = pokemons.map(pokemon => CP.toPokemon(JSON.stringify(pokemon)))
+  setPokemons (state: any, pokemons: Pokemon[]) {
+    state.pokemons = pokemons
   },
-  setPokemon (state, pokemon) {
-    state.pokemon = CPD.toPokemonDetail(CPD.pokemonDetailToJson(pokemon))
+  setPokemon (state: any, pokemon: PokemonDetail) {
+    state.pokemon = pokemon
   }
 }
 
 export const actions = {
-  async getNextPokemons (context) {
+  async getNextPokemons (context: any) {
     context.commit('next')
     await context.dispatch('getPokemons')
   },
-  async getPreviousPokemons (context) {
+  async getPreviousPokemons (context: any) {
     context.commit('previous')
     await context.dispatch('getPokemons')
   },
-  async getPokemons (context) {
+  async getPokemons (context: any) {
     await P.getPokemonsList({ limit: context.state.pagination.limit, offset: context.state.pagination.offset })
-      .then((response) => {
+      .then((response: any) => {
         context.commit('setPokemons', response.results)
       })
   },
-  async getPokemonByName (context, { pokemonName, error }) {
+  async getPokemonByNameAction (context: any, { pokemonName, error }: {pokemonName: string, error: any}) {
     await P.getPokemonByName(pokemonName)
-      .then((response) => {
+      .then((response: any) => {
         return context.commit('setPokemon', response)
       })
       .catch(() => error({ message: `Pokemon with the name ${pokemonName} is not found`, statusCode: 404 }))

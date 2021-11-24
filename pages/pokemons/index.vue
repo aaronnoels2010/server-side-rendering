@@ -1,14 +1,15 @@
 <template>
   <div>
-    <div class="flex flex-row flex-wrap justify-center">
-      <div class="mr-4 mb-4" v-for="(pokemon, index) of pokemons" :key="index">
-        <PokemonCard :pokemon="pokemon">
-        </PokemonCard>
+    <div>
+      <div class="columns is-multiline mb-4">
+        <div class="column is-narrow" v-for="(pokemon, index) of pokemons" :key="index">
+          <PokemonCard :pokemon="pokemon"></PokemonCard>
+        </div>
       </div>
     </div>
-    <div class="flex flex-row justify-end">
-      <button class="button-blue-outline" @click="getPreviousPokemons">Previous</button>
-      <button class="ml-4 button-blue" :disabled="pokemons.length !== 25" @click="getNextPokemons">Next</button>
+    <div class="">
+      <b-button type="is-primary" @click="getPreviousPokemons">Previous</b-button>
+      <b-button type="is-primary" outlined :disabled="pokemons.length !== 25" @click="getNextPokemons">Next</b-button>
     </div>
   </div>
 </template>
@@ -19,15 +20,10 @@ export default {
   name: 'Users',
   // eslint-disable-next-line @typescript-eslint/no-unused-vars
   async asyncData ({ $auth, store }) {
-    console.log($auth.loginWith)
-    console.log($auth.loginWith('auth0'))
     await store.dispatch('pokemon/getPokemons')
   },
   head () {
     return { title: 'Pokemons' }
-  },
-  mounted () {
-    this.$auth.loginWith('auth0')
   },
   computed: {
     pokemons () {

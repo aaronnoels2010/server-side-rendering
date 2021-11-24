@@ -1,9 +1,12 @@
 <template>
-  <div class="error-container flex flex-col justify-center items-center">
-    <h1 v-if="error && error.statusCode" class="text-6xl text-gray-500">{{ error.statusCode }}</h1>
-    <h1 v-if="!error || !error.statusCode" class="text-6xl text-gray-500">500</h1>
-    <h5 v-if="error && error.message" class="text-2xl text-gray-700">{{ error.message }}</h5>
-    <h5  v-if="!error || !error.message" class="text-2xl text-gray-700">Something went wrong</h5>
+  <div class="is-flex is-flex-direction-column is-justify-content-center is-align-items-center">
+    <img src="~/assets/icons/error.png" alt="error image">
+    <h3 v-if="error && error.message" class="is-size-3 bold">{{ error.message }}</h3>
+    <h3  v-if="!error || !error.message" class="is-size-3 bold">Something went wrong</h3>
+    <div>
+      <b-button type="is-primary" @click="refresh">Refresh</b-button>
+      <b-button type="is-ghost" @click="goToHome">Go to home</b-button>
+    </div>
   </div>
 </template>
 
@@ -13,12 +16,26 @@ export default {
   head () {
     return { title: this.error.statusCode }
   },
-  props: ['error']
+  mounted () {
+    console.error(`${this.error.statusCode}
+    ${this.error.path}
+    ${this.error.message}`)
+  },
+  props: ['error'],
+  methods: {
+    goToHome () {
+      this.$router.push('/')
+    },
+    async refresh () {
+      await this.$router.push(this.$route.path)
+    }
+  }
 }
 </script>
 
 <style scoped>
-.error-container {
-  height: calc(100vh - 96px);
+.bold {
+  color: red;
+  font-weight: bold;
 }
 </style>

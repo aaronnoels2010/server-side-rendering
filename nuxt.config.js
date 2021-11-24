@@ -1,3 +1,4 @@
+// @ts-ignore
 export default {
   // Global page headers: https://go.nuxtjs.dev/config-head
   head: {
@@ -15,7 +16,7 @@ export default {
 
   // Global CSS: https://go.nuxtjs.dev/config-css
   css: [
-    '@/assets/css/styles.css'
+    '@/assets/css/styles.scss'
   ],
 
   // Plugins to run before rendering page: https://go.nuxtjs.dev/config-plugins
@@ -29,35 +30,38 @@ export default {
   // Modules for dev and build (recommended): https://go.nuxtjs.dev/config-modules
   buildModules: [
     // https://go.nuxtjs.dev/typescript
-    '@nuxt/typescript-build',
-    // https://go.nuxtjs.dev/tailwindcss
-    '@nuxtjs/tailwindcss'
+    '@nuxt/typescript-build'
   ],
 
   // Modules: https://go.nuxtjs.dev/config-modules
   modules: [
     // https://go.nuxtjs.dev/axios
     '@nuxtjs/axios',
-    '@nuxtjs/auth',
-    '@nuxtjs/pwa'
+    '@nuxtjs/auth-next',
+    '@nuxtjs/pwa',
+    'nuxt-buefy'
   ],
+  router: {
+    middleware: ['auth', 'logger']
+  },
   auth: {
     redirect: {
-      login: '/', // redirect user when not connected
-      callback: '/auth/signed-in'
+      login: '/login', // redirect user when not connected
+      logout: '/logout',
+      callback: '/callback',
+      home: '/'
     },
     strategies: {
-      local: false,
       auth0: {
-        audience: 'https://ssr-dev.eu.auth0.com/api/v2/',
+        audience: process.env.AUTH0_AUDIENCE,
         domain: process.env.AUTH0_DOMAIN,
-        client_id: process.env.AUTH0_CLIENT_ID
+        clientId: process.env.AUTH0_CLIENT_ID
       }
     }
   },
   // Axios module configuration: https://go.nuxtjs.dev/config-axios
   axios: {
-    baseURL: 'https://pokeapi.co/api/v2/'
+    baseURL: process.env.API_BASE_URL
   },
 
   // PWA module configuration: https://go.nuxtjs.dev/pwa
@@ -69,5 +73,25 @@ export default {
 
   // Build Configuration: https://go.nuxtjs.dev/config-build
   build: {
-  }
+    loaders: {
+      scss: {
+        implementation: require('sass')
+      }
+    },
+    postcss: {
+      plugins: {
+        autoprefixer: {},
+        cssnano: { preset: 'default' },
+        'postcss-import': {},
+        'postcss-url': {}
+      },
+      preset: {
+        stage: 2
+      }
+    }
+  },
+  serverMiddleware: [{
+    path: '/api',
+    handler: '~/api/index.ts'
+  }]
 }

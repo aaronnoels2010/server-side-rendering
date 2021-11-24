@@ -1,16 +1,16 @@
 <template>
-  <div @click="goToPokemonDetails" class="flex flex-col justify-center items-center shadow-md pokemon-card__container hover:shadow-xl">
+  <div @click="goToPokemonDetails" class="box">
     <span>{{ pokemon.name }}</span>
   </div>
 </template>
 
 <script>
 export default {
-  name: 'PokemonCard',
+  name: 'Card',
   props: ['pokemon'],
   methods: {
     async goToPokemonDetails () {
-      await this.$router.push(`/pokemons/${this.pokemon.name}`)
+      await this.$router.push(`/pokemons/by/name/${this.pokemon.name}`)
     }
   }
 }

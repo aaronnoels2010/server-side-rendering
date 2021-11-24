@@ -1,11 +1,11 @@
-export default function ({ $axios, redirect }) {
+export default function ({ $axios }) {
   $axios.onRequest((config) => {
+    console.log()
     console.log('Making request to ' + config.url)
   })
 
   $axios.onError((error) => {
-    // const code = parseInt(error.response && error.response.status)
-    console.log(error)
-    redirect('/error')
+    console.log(`Axios error has occured with status ${error.response.status} on url ${error.response.config.url}`)
+    console.log(error.response.data)
   })
 }
