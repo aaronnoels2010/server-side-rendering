@@ -79,6 +79,9 @@ export default {
       }
     }
   },
+  loading: {
+    // TODO CUSTOMIZE LOADING BAR
+  },
   serverMiddleware: [
     // TODO ADD SERVER MIDDLEWARE
   ]
