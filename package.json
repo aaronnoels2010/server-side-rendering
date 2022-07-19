@@ -28,7 +28,7 @@
     "vue-json-viewer": "^2.2.20"
   },
   "devDependencies": {
-    "@babel/eslint-parser": "^7.14.7",
+    "@babel/eslint-parser": "^7.18.9",
     "@nuxt/types": "^2.15.7",
     "@nuxt/typescript-build": "^2.1.0",
     "@nuxtjs/eslint-config-typescript": "^6.0.1",
